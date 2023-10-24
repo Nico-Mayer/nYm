@@ -1,10 +1,12 @@
 package handlers
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/nico-mayer/nym/db"
 	"github.com/nico-mayer/nym/utils"
@@ -41,6 +43,7 @@ func GetRedirect(w http.ResponseWriter, r *http.Request) {
 
 // Put Requests
 func PutCreateLink(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
 	if r.Method != http.MethodPut {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
@@ -49,21 +52,35 @@ func PutCreateLink(w http.ResponseWriter, r *http.Request) {
 	long_url := r.PostFormValue("long_url")
 
 	if !utils.IsValidURL(long_url) {
-		msg := "Provided link is not a Valid URL"
+		msg := "Provided url is not valid"
 		log.Println(msg)
-		w.Write([]byte(msg))
-		//http.Error(w, msg, http.StatusBadRequest)
+		data := struct {
+			My_error string
+		}{
+			My_error: msg,
+		}
+		tmpl := template.Must(template.ParseFiles("./static/templates/index.html"))
+		tmpl.ExecuteTemplate(w, "responseContainer", data)
 		return
 	}
 
+	host := r.Host
 	short_code, err := db.InsertLink(long_url)
+	short_url := "http://" + host + "/r/" + short_code
 
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 
-	w.Header().Set("Content-Type", "text/plain")
-	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(short_code))
+	delta := time.Since(start)
+	data := struct {
+		Short_url string
+		Delta     string
+	}{
+		Short_url: short_url,
+		Delta:     fmt.Sprint(delta),
+	}
+	tmpl := template.Must(template.ParseFiles("./static/templates/index.html"))
+	tmpl.ExecuteTemplate(w, "responseContainer", data)
 }
