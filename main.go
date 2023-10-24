@@ -24,9 +24,14 @@ func main() {
 
 func initServer() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println(r.Method)
+		if r.Method != http.MethodGet {
+			return
+		}
+		w.Header().Set("Content-Type", "text/plain")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Home"))
 	})
-
+	http.HandleFunc("/r/", controllers.HandleRedirect)
 	http.HandleFunc("/add", controllers.AddLink)
 
 	fmt.Println("Server started on " + config.PORT)
