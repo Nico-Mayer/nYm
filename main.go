@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 
 	"github.com/nico-mayer/nym/config"
-	"github.com/nico-mayer/nym/controllers"
 	"github.com/nico-mayer/nym/db"
+	"github.com/nico-mayer/nym/handlers"
 )
 
 func main() {
@@ -27,12 +28,11 @@ func initServer() {
 		if r.Method != http.MethodGet {
 			return
 		}
-		w.Header().Set("Content-Type", "text/plain")
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Home"))
+		tmpl := template.Must(template.ParseFiles("./static/templates/index.html"))
+		tmpl.Execute(w, nil)
 	})
-	http.HandleFunc("/r/", controllers.HandleRedirect)
-	http.HandleFunc("/add", controllers.AddLink)
+	http.HandleFunc("/r/", handlers.HandleRedirect)
+	http.HandleFunc("/add", handlers.AddLink)
 
 	fmt.Println("Server started on " + config.PORT)
 	log.Fatal(http.ListenAndServe(":"+config.PORT, nil))

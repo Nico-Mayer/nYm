@@ -1,31 +1,34 @@
-package controllers
+package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
-	"github.com/nico-mayer/nym/models"
+	"github.com/nico-mayer/nym/db"
 	"github.com/nico-mayer/nym/utils"
 )
 
 func AddLink(w http.ResponseWriter, r *http.Request) {
+	println("AddLink")
 	if r.Method != http.MethodPut {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
-	longLink := r.Header.Get("long_url")
+	long_url := r.PostFormValue("long_url")
+	fmt.Println(long_url)
 
-	if longLink == "" {
+	if long_url == "" {
 		http.Error(w, "No long_url header in the request", http.StatusBadRequest)
 		return
 	}
-	if !utils.IsValidURL(longLink) {
+	if !utils.IsValidURL(long_url) {
 		http.Error(w, "Provided link is not a Valid URL", http.StatusBadRequest)
 		return
 	}
 
-	short_code, err := models.InsertLink(longLink)
+	short_code, err := db.InsertLink(long_url)
 
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -48,7 +51,7 @@ func HandleRedirect(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	short_code := parts[2]
-	link, err := models.GetLink(short_code)
+	link, err := db.GetLink(short_code)
 
 	if err != nil {
 		http.Error(w, "No redirect for this short link", http.StatusBadRequest)
