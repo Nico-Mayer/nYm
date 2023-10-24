@@ -54,11 +54,8 @@ func PutCreateLink(w http.ResponseWriter, r *http.Request) {
 	if !utils.IsValidURL(long_url) {
 		msg := "Provided url is not valid"
 		log.Println(msg)
-		data := struct {
-			My_error string
-		}{
-			My_error: msg,
-		}
+		type Map = map[string]string
+		data := Map{"My_error": msg}
 		tmpl := template.Must(template.ParseFiles("./static/templates/index.html"))
 		tmpl.ExecuteTemplate(w, "responseContainer", data)
 		return
@@ -74,13 +71,8 @@ func PutCreateLink(w http.ResponseWriter, r *http.Request) {
 	}
 
 	delta := time.Since(start)
-	data := struct {
-		Short_url string
-		Delta     string
-	}{
-		Short_url: short_url,
-		Delta:     fmt.Sprint(delta),
-	}
+	type Map = map[string]string
+	data := Map{"Short_url": short_url, "Delta": fmt.Sprint(delta)}
 	tmpl := template.Must(template.ParseFiles("./static/templates/index.html"))
 	tmpl.ExecuteTemplate(w, "responseContainer", data)
 }

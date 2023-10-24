@@ -65,11 +65,11 @@
 					class="outline-none border-none flex-1 bg-[#16161E] rounded-md px-2 py-1"
 				/>
 				<span class="text-xs self-end opacity-30">{{ .Delta }}</span>
-				{{else if .My_error}}
-				<div class="text-xs h-20 self-end opacity-30 text-red-500">
-					{{ .My_error }}
-				</div>
-				{{ end }} {{end}}
+				{{ else if .My_error}}
+				<span class="text-xs self-end text-[#F7768E] opacity-80"
+					>{{ .My_error }}</span
+				>
+				{{end}}{{ end }}
 			</div>
 		</div>
 	</body>
