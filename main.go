@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 
@@ -24,15 +23,11 @@ func main() {
 }
 
 func initServer() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet {
-			return
-		}
-		tmpl := template.Must(template.ParseFiles("./static/templates/index.html"))
-		tmpl.Execute(w, nil)
-	})
-	http.HandleFunc("/r/", handlers.HandleRedirect)
-	http.HandleFunc("/add", handlers.AddLink)
+	// Get Requests
+	http.HandleFunc("/", handlers.GetHomePage)
+	http.HandleFunc("/r/", handlers.GetRedirect)
+	// Put Requests
+	http.HandleFunc("/add", handlers.PutCreateLink)
 
 	fmt.Println("Server started on " + config.PORT)
 	log.Fatal(http.ListenAndServe(":"+config.PORT, nil))
