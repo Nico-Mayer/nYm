@@ -57,7 +57,11 @@ func PutCreateLink(w http.ResponseWriter, r *http.Request) {
 		type Map = map[string]string
 		data := Map{"My_error": msg}
 		tmpl := template.Must(template.ParseFiles("./static/templates/index.html"))
-		tmpl.ExecuteTemplate(w, "responseContainer", data)
+		err := tmpl.ExecuteTemplate(w, "responseContainer", data)
+
+		if err != nil {
+			log.Println(err)
+		}
 		return
 	}
 

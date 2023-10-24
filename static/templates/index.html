@@ -54,7 +54,7 @@
 					>
 				</button>
 			</form>
-			<div id="container" class="w-9/12 lg:w-1/3 flex mt-1 flex-col">
+			<div id="container" class="w-9/12 lg:w-1/3 flex mt-1 flex-col h-20">
 				{{ block "responseContainer" . }} {{if .Short_url}}
 				<input
 					readonly
@@ -64,7 +64,11 @@
 					autocomplete="off"
 					class="outline-none border-none flex-1 bg-[#16161E] rounded-md px-2 py-1"
 				/>
-				<span class="text-xs self-end opacity-30">{{ .Delta }}</span>
+				<div class="flex justify-between w-full">
+					<span class="text-xs opacity-30">Link created in:</span>
+					<span class="text-xs opacity-30">{{ .Delta }}</span>
+				</div>
+
 				{{ else if .My_error}}
 				<span class="text-xs self-end text-[#F7768E] opacity-80"
 					>{{ .My_error }}</span
