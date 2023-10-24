@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 	"strings"
@@ -47,7 +46,6 @@ func PutCreateLink(w http.ResponseWriter, r *http.Request) {
 	}
 
 	long_url := r.PostFormValue("long_url")
-	fmt.Println(long_url)
 
 	if long_url == "" {
 		http.Error(w, "No long_url header in the request", http.StatusBadRequest)

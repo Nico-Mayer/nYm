@@ -2,7 +2,7 @@ package config
 
 import (
 	"bufio"
-	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -19,13 +19,13 @@ var (
 
 func init() {
 	if os.Getenv("ENV") != "PROD" {
-		fmt.Println("Loading local .env file")
+		log.Println("Loading local .env file")
 		err := loadEnv()
 		if err != nil {
 			panic("Error loading .env file")
 		}
 	} else {
-		fmt.Println("Loading Prod environment variables")
+		log.Println("Loading Prod environment variables")
 	}
 
 	PORT = getEnv("PORT", "8080")
@@ -62,7 +62,7 @@ func loadEnv() error {
 func getEnv(key, fallback string) string {
 	value := os.Getenv(key)
 	if value == "" {
-		fmt.Println("Environment variable", key, "not set. Using fallback value:", fallback)
+		log.Println("Environment variable", key, "not set. Using fallback value:", fallback)
 		return fallback
 	}
 	return value

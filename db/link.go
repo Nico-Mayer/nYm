@@ -17,7 +17,6 @@ type Link struct {
 func InsertLink(long_url string) (string, error) {
 	short_code := utils.EncryptURL(long_url)
 	exists := linkExists(short_code)
-	println(exists)
 
 	if exists {
 		log.Printf("Entry for %s already exists", long_url)
@@ -28,7 +27,7 @@ func InsertLink(long_url string) (string, error) {
 	_, err := DB.Exec(query, long_url, short_code)
 	if err != nil {
 		log.Println("Error inserting new link entry")
-		log.Panicln(err)
+		log.Println(err)
 		return "", err
 	}
 
