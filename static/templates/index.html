@@ -9,15 +9,37 @@
 			integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
 			crossorigin="anonymous"
 		></script>
-		<title>Document</title>
+
+		<title>nYm</title>
 	</head>
 	<body
-		class="font-mono flex w-screen h-screen flex-col justify-center items-center bg-gray-100"
+		class="font-mono flex w-screen h-screen flex-col justify-center items-center bg-[#1A1B25] text-[#9CA5CB]"
 	>
-		<h1>nYm</h1>
-		<form hx-put="/add">
-			<input type="text" name="long_url" placeholder="url" />
-			<button type="submit">shorten</button>
+		<div class="flex h-14 w-full items-center justify-center">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="32"
+				height="32"
+				viewBox="0 0 256 256"
+				class="fill-current text-[#F1A26F] mr-2"
+			>
+				<path
+					fill="currentColor"
+					d="M219.68 117.26a12 12 0 0 0-7.47-8.5l-54.44-20.41l14-70a12 12 0 0 0-20.54-10.54l-112 120a12 12 0 0 0 4.56 19.43l54.44 20.41l-14 70a12 12 0 0 0 20.54 10.54l112-120a12 12 0 0 0 2.91-10.93Zm-103.63 83.67l7.72-38.58a12 12 0 0 0-7.56-13.59L69 131.07l70.93-76l-7.72 38.58a12 12 0 0 0 7.56 13.59L187 124.93Z"
+				/>
+			</svg>
+			<h1>nYm</h1>
+		</div>
+
+		<form hx-put="/add" class="bg-[#16161D] px-2 py-1 rounded-md">
+			<input
+				type="text"
+				name="long_url"
+				placeholder="url"
+				autocomplete="off"
+				class="bg-transparent outline-none border-none"
+			/>
+			<button type="submit">Shorten</button>
 		</form>
 	</body>
 </html>

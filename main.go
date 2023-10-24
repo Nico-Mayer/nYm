@@ -13,7 +13,7 @@ func main() {
 	err := db.Connect()
 
 	if err != nil {
-		log.Println("Error on connecting to db")
+		log.Println("Error while connecting to Database")
 	} else {
 		log.Println("Connected to Database")
 	}
