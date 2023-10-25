@@ -3,6 +3,48 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="nYm - A Lightning-Fast URL Shortener Built with Go and HTMX"
+		/>
+		<meta
+			name="keywords"
+			content="nYm, URL Shortener, Link Management, Shorten URLs"
+		/>
+		<meta name="author" content="Nico-Mayer" />
+		<!-- Open Graph Tags -->
+		<meta property="og:title" content="nYm - URL Shortener" />
+		<meta
+			property="og:description"
+			content="nYm - A Lightning-Fast URL Shortener Built with Go and HTMX"
+		/>
+		<meta
+			property="og:url"
+			content="https://nym-production.up.railway.app/"
+		/>
+		<meta
+			property="og:image"
+			content="https://nym-production.up.railway.app/og-image.jpg"
+		/>
+
+		<!-- Twitter Card Tags -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="nYm - URL Shortener" />
+		<meta
+			name="twitter:description"
+			content="nYm - A Lightning-Fast URL Shortener Built with Go and HTMX"
+		/>
+		<meta
+			name="twitter:image"
+			content="https://nym-production.up.railway.app/twitter-image.jpg"
+		/>
+
+		<!-- Canonical URL -->
+		<link rel="canonical" href="https://nym-production.up.railway.app/" />
+
+		<!-- Robots Meta Tag -->
+		<meta name="robots" content="index, follow" />
+
 		<script src="https://cdn.tailwindcss.com"></script>
 		<script
 			src="https://unpkg.com/htmx.org@1.9.6"
@@ -51,12 +93,15 @@
 					class="bg-transparent outline-none border-none flex-1 font-thin"
 				/>
 				<button
+					name="submit"
 					class="block rounded-md px-2 py-1 bg-[#1A1B26] hover:border-[#F1A26F] border border-[#16161E] duration-200 transition-all"
 					type="submit"
 				>
 					<img
-					src="https://api.iconify.design/gg:compress.svg?color=%23e6a577"/
-					>
+						class="w-4 h-4"
+						alt="compress"
+						src="https://api.iconify.design/gg:compress.svg?color=%23e6a577"
+					/>
 				</button>
 			</form>
 			<div id="container" class="w-9/12 lg:w-1/3 flex mt-1 flex-col h-20">
