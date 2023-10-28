@@ -58,6 +58,13 @@
 			href="https://raw.githubusercontent.com/Nico-Mayer/nYm/main/static/assets/favicon.ico?token=GHSAT0AAAAAACIEYDABSENX6MWAT3X4CR6OZJY2RIA"
 			type="image/x-icon"
 		/>
+		<script>
+			function handleCopyToClipboard() {
+				const copyText = document.querySelector('#short_url')
+				copyText.select()
+				window.navigator.clipboard.writeText(copyText.value)
+			}
+		</script>
 	</head>
 	<body
 		class="font-mono flex w-screen h-screen flex-col justify-center items-center bg-[#1A1B25] text-[#9CA5CB]"
@@ -90,11 +97,11 @@
 					name="long_url"
 					placeholder="URL..."
 					autocomplete="off"
-					class="bg-transparent outline-none border-none flex-1 font-thin"
+					class="bg-transparent outline-none border-none flex-1 font-thin placeholder:text-[#9CA5CB]/30"
 				/>
 				<button
 					name="submit"
-					class="block rounded-md px-2 py-1 bg-[#1A1B26] hover:border-[#F1A26F] border border-[#16161E] duration-200 transition-all"
+					class="block rounded-md p-2 bg-[#1A1B26] hover:border-[#F1A26F] border border-[#16161E] duration-200 transition-all"
 					type="submit"
 				>
 					<img
@@ -106,17 +113,38 @@
 			</form>
 			<div id="container" class="w-9/12 lg:w-1/3 flex mt-1 flex-col h-20">
 				{{ block "responseContainer" . }} {{if .Short_url}}
-				<input
-					readonly
-					type="text"
-					hx-on:click="this.select()"
-					value="{{ .Short_url }}"
-					autocomplete="off"
-					class="outline-none border-none flex-1 bg-[#16161E] rounded-md px-2 py-1"
-				/>
-				<div class="flex justify-between w-full">
-					<span class="text-xs opacity-30">Link created in:</span>
-					<span class="text-xs opacity-30">{{ .Delta }}</span>
+				<div
+					class="bg-[#16161E] rounded-md px-2 py-1 flex w-full flex-col"
+				>
+					<div class="flex">
+						<input
+							readonly
+							id="short_url"
+							type="text"
+							hx-on:click="this.select() ; handleCopyToClipboard()"
+							value="{{ .Short_url }}"
+							autocomplete="off"
+							class="outline-none border-none flex-1 bg-transparent w-full"
+						/>
+						<button
+							name="submit"
+							class="block rounded-md p-2 bg-[#1A1B26] hover:border-[#F1A26F] border border-[#16161E] duration-200 transition-all"
+							type="submit"
+						>
+							<img
+								class="w-4 h-4"
+								alt="compress"
+								src="https://api.iconify.design/mdi:content-copy.svg?color=%23e6a577"
+							/>
+						</button>
+					</div>
+
+					<div
+						class="flex justify-between w-full text-xs font-thin mt-1"
+					>
+						<span class="opacity-30">Link created in:</span>
+						<span class="opacity-30">{{ .Delta }}</span>
+					</div>
 				</div>
 
 				{{ else if .My_error}}
