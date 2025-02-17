@@ -8,13 +8,8 @@ import (
 )
 
 var (
-	PORT       string
-	DB_URL     string
-	PGDATABASE string
-	PGHOST     string
-	PGPASSWORD string
-	PGPORT     string
-	PGUSER     string
+	PORT         string
+	DATABASE_URL string
 )
 
 func init() {
@@ -29,12 +24,7 @@ func init() {
 	}
 
 	PORT = getEnv("PORT", "8080")
-	DB_URL = getEnv("DATABASE_URL", "localhost:27017")
-	PGDATABASE = getEnv("PGDATABASE", "postgres")
-	PGHOST = getEnv("PGHOST", "localhost")
-	PGPASSWORD = getEnv("PGPASSWORD", "postgres")
-	PGPORT = getEnv("PGPORT", "5432")
-	PGUSER = getEnv("PGUSER", "postgres")
+	DATABASE_URL = getEnv("DATABASE_URL", "localhost:27017")
 }
 
 func loadEnv() error {

@@ -10,10 +10,8 @@ import (
 var DB *sql.DB
 
 func Connect() error {
-	connStr := "user=" + config.PGUSER + " password=" + config.PGPASSWORD + " dbname=" + config.PGDATABASE + " host=" + config.PGHOST + " sslmode=disable"
-
 	var err error
-	DB, err = sql.Open("postgres", connStr)
+	DB, err = sql.Open("postgres", config.DATABASE_URL)
 	if err != nil {
 		return err
 	}
